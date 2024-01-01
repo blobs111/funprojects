@@ -1,0 +1,164 @@
+<html>
+<h2> calculator </h2>
+<p id=demo>‎ </p>
+<head>
+  <style>
+    .button {
+      background-color: #e7e7e7;
+      border: none;
+      color: black;
+      padding: 12px 15px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+  </style>
+  <style>
+    .other {
+      background-color: #555555;
+      border: none;
+      color: white;
+      padding: 12px 15px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+  </style>
+  <style>
+    .equal {
+      background-color: #008CBA;
+      border: none;
+      color: white;
+      padding: 12px 15px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <button class="other" onclick="cleanup()">C</button>
+  <button class="other">(</button>
+  <button class="other">)</button>
+  <button class="equal" onclick="calculate()">=</button> </br>
+  <button class="button" onclick="setValue(1)">1</button>
+  <button class="button" onclick="setValue(2)">2</button>
+  <button class="button" onclick="setValue(3)">3</button>
+  <button class="other" onclick="setValue('+')">+</button> </br>
+  <button class="button" onclick="setValue(4)">4</button>
+  <button class="button" onclick="setValue(5)">5</button>
+  <button class="button" onclick="setValue(6)">6</button>
+  <button class="other" onclick="setValue('-')">-</button> </br>
+  <button class="button" onclick="setValue(7)">7</button>
+  <button class="button" onclick="setValue(8)">8</button>
+  <button class="button" onclick="setValue(9)">9</button>
+  <button class="other" onclick="setValue('*')">*</button> </br>
+  <button class="button" onclick="setValue('.')">.</button>
+  <button class="button" onclick="setValue(0)">0</button>
+  <button class="other">π</button>
+  <button class="other" onclick="setValue('/')">/</button>
+
+  <script>
+    var decimal = 0
+    var decimalLength = 0
+    var element = 0
+    const numbers = []
+    var index = 0
+    var result = 0
+
+    function setValue(x) {
+      var oldValue = document.getElementById("demo").innerHTML;
+      document.getElementById("demo").innerHTML = oldValue + x;
+
+      setOperand(x);
+
+    }
+
+    function setOperand(x) {
+
+      if (x == '+' || x == '-' || x == '*' || x == '/') {
+        numbers[index] = element
+        index++
+        numbers[index] = x
+        index++
+        element = 0
+        decimalLength = 0
+        decimal = 0
+      } else {
+        if (x == '.') {
+          decimal = 1
+        }
+        if (decimal == 1) {
+          decimalLength = decimalLength + 1
+          element = element + x * Math.pow(0.1, length)
+        }
+        else {
+          element = element * 10 + x
+        }
+      }
+    }
+
+    function calculate() {
+      numbers[index] = element
+      result = calResult(0, index)
+      document.getElementById("demo").innerHTML = result
+
+    }
+
+    function calResult(start, end) {
+      if (end - start == 2) {
+        if (numbers[start + 1] == '+') {
+          return numbers[start] + numbers[end]
+        }
+        else if (numbers[start + 1] == '-') {
+          return numbers[start] - numbers[end]
+        }
+        else if (numbers[start + 1] == '*') {
+          return numbers[start] * numbers[end]
+        }
+        else if (numbers[start + 1] == '/') {
+          return numbers[start] / numbers[end]
+        }
+      }
+      else {
+        if (numbers[end - 1] == '+') {
+          return calResult(start, end - 2) + numbers[end]
+        }
+        else if (numbers[end - 1] == '-') {
+          return calResult(start, end - 2) - numbers[end]
+        }
+        else if (numbers[end - 1] == '*') {
+          numbers[end - 2] = numbers[end - 2] * numbers[end]
+          return calResult(start, end - 2)
+        }
+        else if (numbers[end - 1] == '/') {
+          numbers[end - 2] = numbers[end - 2] / numbers[end]
+          return calResult(start, end - 2)
+        }
+      }
+    }
+
+    function cleanup() {
+      document.getElementById("demo").innerHTML = '‎ '
+      decimal = 0
+      decimalLength = 0
+      element = 0
+      numbers.length = 0
+      index = 0
+      result = 0
+    }
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<html>
+<h2>Clicker game</h2>
+<p>cpc = clicks per click</p>
+<p>cps = clicks per second</p>
+<p id = clicks style="font-size: medium;">Clicks: 0</p>
+<p id = CPS>cps: 0</p>
+<p id = CPC>cpc: 1</p>
+<style>
+    .button {
+      background-color: darkslategray;
+      border: none;
+      color: white;
+      padding: 12px 15px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      border-radius: 0px;
+      transition-duration: 0.4s;
+    }
+    .buy {
+        background-color: mediumseagreen;
+        border: none;
+        color: black;
+        padding: 12px 15px;
+        text-decoration: none;
+        text-align: center;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        border-radius: 0px;
+        transition-duration: 0.4s;
+    }
+    .button1 {
+        background-color: white;
+        color: black;
+        border: 2px solid darkslategray;
+    }
+    .button1:hover {
+        background-color: darkslategray;
+        color: white;
+    }
+    .buy1 {
+        background-color: white;
+        color: black;
+        border: 2px solid mediumseagreen;
+    }
+    .buy1:hover {
+        background-color: mediumseagreen;
+        color: white;
+    }
+</style>
+<button class="button button1" onclick="display()">click me!</button> </br>
+<button class="buy buy1" onclick="buy(20); resultCpc(1)">+1 cpc</button> 
+<p style="font-size: medium;">Cost: 20 clicks</p>
+<button class="buy buy1">+1 cps</button>
+<p style="font-size: medium;">Cost: 100 clicks</p>
+<script>
+    var noc = 0
+    var cps = 0
+    var cpc = 1
+    var bought = 0
+    function display() {
+        noc = noc + cpc
+        document.getElementById("clicks").innerHTML = "Clicks: " + noc
+    }
+    function buy(price) {
+        if (noc > price || noc == price) {
+            noc = noc - price
+            bought = 1
+            document.getElementById("clicks").innerHTML = "Clicks: " + noc
+        } else {
+            
+        }
+    }
+    function resultCpc(reward) {
+        if (bought = 1) {
+          cpc = cpc + reward
+          document.getElementById("CPC").innerHTML = "cpc: " + cpc
+        }
+        bought = 0
+    }
+
+</script>
+</html>
